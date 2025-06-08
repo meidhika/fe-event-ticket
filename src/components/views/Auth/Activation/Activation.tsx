@@ -21,7 +21,7 @@ const Activation =(props:PropTypes) =>{
             <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-3xl font-bold text-danger-500">{status === "success" ? "Account Success" : "Account Activation Failed"}</h1>
                 <p className="text-xl font-bold text-default-500">{status === "success" ? "Thankyou for register account Event Ticket" : "Confirmation Code Is Invalid"    }</p>
-                <Button color="danger" className="mt-4 w-fit" variant="bordered" onClick={()=>router.push("/")}>Back To Home</Button>
+                <Button color="danger" className="mt-4 w-fit" variant="bordered" onPress={()=>router.push("/")}>Back To Home</Button>
             </div>
         </div>
     )
