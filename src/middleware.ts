@@ -1,11 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { JWTExtended } from "./types/Auth";
 import { getToken } from "next-auth/jwt";
+import environment from "./config/environment";
 
 export async function middleware(request: NextRequest) {
   const token: JWTExtended | null = await getToken({
     req: request,
-    secret: process.env.AUTH_SECRET,
+    secret: environment.AUTH_SECRET,
   });
 
   const { pathname } = request.nextUrl;

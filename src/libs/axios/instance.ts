@@ -1,8 +1,7 @@
 import environment from "@/config/environment";
-import axios from "axios";
-import { get } from "http";
-import { getSession } from "next-auth/react";
 import { SessionExtended } from "@/types/Auth";
+import axios from "axios";
+import { getSession } from "next-auth/react";
 
 const headers = {
   "Content-Type": "application/json",

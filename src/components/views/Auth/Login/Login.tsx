@@ -90,7 +90,7 @@ const Login = () => {
                     <button
                       className="focus:outline-none"
                       type="button"
-                      onClick={toggleVisibility}
+                      onPress={toggleVisibility}
                     >
                       {" "}
                       {isVisible ? (
