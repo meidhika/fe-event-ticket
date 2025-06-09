@@ -15,7 +15,7 @@ interface PropTypes {
   onClose: () => void;
   onOpenChange: () => void;
   refetchCategory: () => void;
-  isPendingMutateDeleteCategory: boolean;
+  isPendingMutateDeleteCategory?: boolean;
   selectedId: string;
   setSelectedId: Dispatch<SetStateAction<string>>;
 }

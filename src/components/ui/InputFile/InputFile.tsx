@@ -1,14 +1,7 @@
 import { cn } from "@/utils/cn";
 import { Button, Spinner } from "@nextui-org/react";
 import Image from "next/image";
-import {
-  ChangeEvent,
-  DragEvent,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, useEffect, useId, useRef, useState } from "react";
 import { CiSaveUp2, CiTrash } from "react-icons/ci";
 
 interface PropTypes {
@@ -49,7 +42,7 @@ const InputFile = (props: PropTypes) => {
 
   const handleDrop = (e: DragEvent) => {
     e.preventDefault();
-    const files = e.dataTransfer.files;
+    const files = e.dataTransfer?.files;
     if (files && onUpload) {
       onUpload(files);
     }
