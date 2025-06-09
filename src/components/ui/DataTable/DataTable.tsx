@@ -117,14 +117,14 @@ const DataTable = (props: PropTypes) => {
   ]);
   return (
     <Table
-      className={{
+      bottomContent={BottomContent}
+      bottomContentPlacement="outside"
+      classNames={{
         base: "max-w-full",
         wrapper: cn({ "overflow-x-hidden": isLoading }),
       }}
       topContent={topContent}
       topContentPlacement="outside"
-      bottomContent={BottomContent}
-      bottomContentPlacement="outside"
     >
       <TableHeader columns={columns}>
         {(column) => (
