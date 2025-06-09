@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { use, useContext, useState } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { toggle } from "@nextui-org/react";
+import { ToasterContext } from "@/contexts/ToasterContext";
 
 const loginSchema = yup.object().shape({
   identifier: yup.string().required("Please input your email or username"),
@@ -18,6 +19,7 @@ const useLogin = () => {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+  const { setToaster } = useContext(ToasterContext);
   const callbackUrl: string = (router.query.callbackUrl as string) || "/";
   const {
     control,
@@ -40,14 +42,13 @@ const useLogin = () => {
 
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: loginService,
-    onError(error) {
-      setError("root", {
-        message: error.message,
-      });
+    onError: () => {
+      setToaster({ type: "error", message: "Your Credentials is wrong" });
     },
     onSuccess: () => {
-      router.push(callbackUrl);
       reset();
+      setToaster({ type: "success", message: "Login Success" });
+      router.push(callbackUrl);
     },
   });
 
