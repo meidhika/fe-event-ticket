@@ -37,6 +37,7 @@ const Category = () => {
   const addCategoryModal = useDisclosure();
 
   const deleteCategoryModal = useDisclosure();
+
   useEffect(() => {
     if (isReady) {
       setURL();
