@@ -1,4 +1,5 @@
 import { LIMIT_LISTS } from "@/constants/list.constants";
+import useChangeUrl from "@/hooks/useChangeUrl";
 import { cn } from "@/utils/cn";
 import {
   Button,
@@ -21,35 +22,34 @@ interface PropTypes {
   buttonTopContentLabel?: string;
   columns: Record<string, unknown>[];
   data: Record<string, unknown>[];
-  currentPage: number;
-  limit: string;
   isLoading?: boolean;
   emptyContent: string;
-  onChangeLimit: (e: ChangeEvent<HTMLSelectElement>) => void;
-  onChangePage: (page: number) => void;
   totalPages: number;
-  onClearSearch: () => void;
-  onChangeSearch: (e: ChangeEvent<HTMLInputElement>) => void;
   onClickButtonTopContent?: () => void;
   renderCell: (item: Record<string, unknown>, columnKey: Key) => ReactNode;
 }
+
 const DataTable = (props: PropTypes) => {
+  const {
+    currentLimit,
+    currentPage,
+    handleChangeLimit,
+    handleChangePage,
+    handleSearch,
+    handleClearSearch,
+  } = useChangeUrl();
+
   const {
     columns,
     data,
-    limit,
-    onChangeLimit,
     renderCell,
-    onClearSearch,
-    onChangeSearch,
     buttonTopContentLabel,
     onClickButtonTopContent,
     totalPages,
-    onChangePage,
-    currentPage,
     emptyContent,
     isLoading,
   } = props;
+
   const topContent = useMemo(() => {
     return (
       <div className="flex flex-row-reverse justify-between gap-y-4 lg:flex-row lg:items-center">
@@ -58,8 +58,8 @@ const DataTable = (props: PropTypes) => {
           className="w-full sm:max-w-[24%]"
           placeholder="Search by name"
           startContent={<CiSearch />}
-          onClear={onClearSearch}
-          onChange={onChangeSearch}
+          onClear={handleClearSearch}
+          onChange={handleSearch}
         />
         {buttonTopContentLabel && (
           <Button color="danger" onPress={onClickButtonTopContent}>
@@ -70,8 +70,8 @@ const DataTable = (props: PropTypes) => {
     );
   }, [
     buttonTopContentLabel,
-    onClearSearch,
-    onChangeSearch,
+    handleClearSearch,
+    handleSearch,
     onClickButtonTopContent,
   ]);
   const BottomContent = useMemo(() => {
@@ -80,9 +80,9 @@ const DataTable = (props: PropTypes) => {
         <Select
           className="hidden max-w-36 lg:block"
           size="md"
-          selectedKeys={[limit]}
+          selectedKeys={[`${currentLimit}`]}
           selectionMode="single"
-          onChange={onChangeLimit}
+          onChange={handleChangeLimit}
           startContent={<p className="text-small">Show: </p>}
           disallowEmptySelection
         >
@@ -99,22 +99,14 @@ const DataTable = (props: PropTypes) => {
             size="sm"
             total={totalPages}
             color="danger"
-            page={currentPage}
-            onChange={onChangePage}
+            page={Number(currentPage)}
+            onChange={handleChangePage}
             loop
           />
         )}
       </div>
     );
-  }, [
-    limit,
-    currentPage,
-    totalPages,
-    onChangeLimit,
-    onChangePage,
-    onChangeLimit,
-    onChangePage,
-  ]);
+  }, [currentLimit, currentPage, totalPages]);
   return (
     <Table
       bottomContent={BottomContent}
