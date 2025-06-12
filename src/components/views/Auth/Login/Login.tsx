@@ -4,7 +4,6 @@ import Link from "next/link";
 import useLogin from "./useLogin";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Controller } from "react-hook-form";
-import { error } from "console";
 import { cn } from "@/utils/cn";
 
 const Login = () => {
