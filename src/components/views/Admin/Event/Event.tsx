@@ -8,6 +8,7 @@ import Image from "next/image";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import DropdownAction from "@/components/commons/DropdownAction";
 import AddEventModal from "./AddEventModal";
+import DeleteEventModal from "./DeleteEventModal";
 
 const Event = () => {
   const { push, isReady, query } = useRouter();
@@ -61,7 +62,7 @@ const Event = () => {
             <DropdownAction
               onPressButtonDetail={() => push(`/admin/event/${event._id}`)}
               onPressButtonDelete={() => {
-                setSelectedId(`$(event._id)`);
+                setSelectedId(`${event._id}`);
                 deleteEventModal.onOpen();
               }}
             />
@@ -88,6 +89,12 @@ const Event = () => {
         />
       )}
       <AddEventModal refetchEvents={refetchEvents} {...addEventModal} />
+      <DeleteEventModal
+        {...deleteEventModal}
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+        refetchEvents={refetchEvents}
+      />
     </section>
   );
 };
