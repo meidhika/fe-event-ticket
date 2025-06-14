@@ -136,7 +136,6 @@ const AddEventModal = (props: PropTypes) => {
                       {...field}
                       label="Start Date"
                       variant="bordered"
-                      defaultValue={now(getLocalTimeZone())}
                       hideTimeZone
                       showMonthAndYearPickers
                       isInvalid={errors.startDate !== undefined}
@@ -152,7 +151,6 @@ const AddEventModal = (props: PropTypes) => {
                       {...field}
                       label="End Date"
                       variant="bordered"
-                      defaultValue={now(getLocalTimeZone())}
                       hideTimeZone
                       showMonthAndYearPickers
                       isInvalid={errors.endDate !== undefined}
@@ -208,7 +206,7 @@ const AddEventModal = (props: PropTypes) => {
                   render={({ field }) => (
                     <Select
                       {...field}
-                      label="Online"
+                      label="Online / Offline"
                       variant="bordered"
                       isInvalid={errors.isOnline !== undefined}
                       errorMessage={errors.isOnline?.message}
