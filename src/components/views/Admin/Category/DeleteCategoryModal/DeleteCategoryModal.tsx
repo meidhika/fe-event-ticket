@@ -15,7 +15,6 @@ interface PropTypes {
   onClose: () => void;
   onOpenChange: () => void;
   refetchCategory: () => void;
-  isPendingMutateDeleteCategory?: boolean;
   selectedId: string;
   setSelectedId: Dispatch<SetStateAction<string>>;
 }
@@ -23,11 +22,11 @@ interface PropTypes {
 const DeleteCategoryModal = (props: PropTypes) => {
   const {
     isOpen,
-    onOpenChange,
     onClose,
-    refetchCategory,
+    onOpenChange,
     selectedId,
     setSelectedId,
+    refetchCategory,
   } = props;
 
   const {
@@ -40,6 +39,7 @@ const DeleteCategoryModal = (props: PropTypes) => {
     if (isSuccessMutateDeleteCategory) {
       onClose();
       refetchCategory();
+      setSelectedId("");
     }
   }, [isSuccessMutateDeleteCategory]);
 
@@ -53,7 +53,9 @@ const DeleteCategoryModal = (props: PropTypes) => {
       <ModalContent className="m-4">
         <ModalHeader>Delete Category</ModalHeader>
         <ModalBody>
-          <p className="text-md">Are Your Sure to want delete this category?</p>
+          <p className="text-medium">
+            Are you sure you want to delete this category?
+          </p>
         </ModalBody>
         <ModalFooter>
           <Button

@@ -22,7 +22,6 @@ const Category = () => {
   } = useCategory();
 
   const addCategoryModal = useDisclosure();
-
   const deleteCategoryModal = useDisclosure();
   const { setUrl } = useChangeUrl();
   useEffect(() => {
@@ -46,7 +45,7 @@ const Category = () => {
                 push(`/admin/category/${category._id}`)
               }
               onPressButtonDelete={() => {
-                setSelectedId(`$(category._id)`);
+                setSelectedId(`${category._id}`);
                 deleteCategoryModal.onOpen();
               }}
             />

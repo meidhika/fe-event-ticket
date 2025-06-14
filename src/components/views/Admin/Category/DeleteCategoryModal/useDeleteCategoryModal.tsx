@@ -5,10 +5,12 @@ import { useContext } from "react";
 
 const useDeleteCategoryModal = () => {
   const { setToaster } = useContext(ToasterContext);
+
   const deleteCategory = async (id: string) => {
     const res = await categoryServices.deleteCategory(id);
     return res;
   };
+
   const {
     mutate: mutateDeleteCategory,
     isPending: isPendingMutateDeleteCategory,
@@ -16,16 +18,24 @@ const useDeleteCategoryModal = () => {
   } = useMutation({
     mutationFn: deleteCategory,
     onError: (error) => {
-      setToaster({ type: "error", message: error.message });
+      setToaster({
+        type: "error",
+        message: error.message,
+      });
     },
     onSuccess: () => {
-      setToaster({ type: "success", message: "Success Delete Category" });
+      setToaster({
+        type: "success",
+        message: "Delete category success",
+      });
     },
   });
+
   return {
     mutateDeleteCategory,
     isPendingMutateDeleteCategory,
     isSuccessMutateDeleteCategory,
   };
 };
+
 export default useDeleteCategoryModal;
