@@ -7,6 +7,7 @@ import useBanner from "./useBanner";
 import Image from "next/image";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import DropdownAction from "@/components/commons/DropdownAction";
+import AddBannerModal from "./AddBannerModal";
 
 const Banner = () => {
   const { push, isReady, query } = useRouter();
@@ -34,7 +35,13 @@ const Banner = () => {
       switch (columnKey) {
         case "image":
           return (
-            <Image src={`${cellValue}`} alt="image" width={300} height={200} />
+            <Image
+              src={`${cellValue}`}
+              alt="image"
+              width={300}
+              height={200}
+              className="rounded-lg"
+            />
           );
         case "isShow":
           return (
@@ -77,6 +84,13 @@ const Banner = () => {
           totalPages={dataBanners?.pagination.totalPages}
         />
       )}
+      <AddBannerModal refetchBanners={refetchBanners} {...addBannerModal} />
+      {/* <DeleteBannerModal
+        {...deleteBannerModal}
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+        refetchBanner={refetchBanners}
+      /> */}
     </section>
   );
 };
