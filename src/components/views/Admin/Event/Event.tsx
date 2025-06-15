@@ -1,11 +1,11 @@
 import DataTable from "@/components/ui/DataTable";
 import { Chip, useDisclosure } from "@nextui-org/react";
-import { useRouter } from "next/router";
-import React, { Key, ReactNode, useCallback, useEffect } from "react";
-import { COLUMN_LISTS_EVENT } from "./Event.constants";
-import useEvent from "./useEvent";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { Key, ReactNode, useCallback, useEffect } from "react";
+import { COLUMN_LISTS_EVENT } from "./Event.constants";
 import useChangeUrl from "@/hooks/useChangeUrl";
+import useEvent from "./useEvent";
 import DropdownAction from "@/components/commons/DropdownAction";
 import AddEventModal from "./AddEventModal";
 import DeleteEventModal from "./DeleteEventModal";
@@ -14,9 +14,9 @@ const Event = () => {
   const { push, isReady, query } = useRouter();
   const {
     dataEvents,
-    isRefatchingEvents,
-    refetchEvents,
     isLoadingEvents,
+    isRefetchingEvents,
+    refetchEvents,
 
     selectedId,
     setSelectedId,
@@ -36,26 +36,27 @@ const Event = () => {
   const renderCell = useCallback(
     (event: Record<string, unknown>, columnKey: Key) => {
       const cellValue = event[columnKey as keyof typeof event];
+
       switch (columnKey) {
-        case "isPublish":
-          return (
-            <Chip
-              color={cellValue === true ? "success" : "warning"}
-              size="sm"
-              variant="flat"
-            >
-              {cellValue === true ? "Published" : "Not Publish"}
-            </Chip>
-          );
         case "banner":
           return (
             <Image
               className="aspect-video w-36 rounded-lg object-cover"
               src={`${cellValue}`}
-              alt="banner"
+              alt="icon"
               width={200}
               height={100}
             />
+          );
+        case "isPublish":
+          return (
+            <Chip
+              color={cellValue ? "success" : "warning"}
+              size="sm"
+              variant="flat"
+            >
+              {cellValue === true ? "Published" : "Not Published"}
+            </Chip>
           );
         case "actions":
           return (
@@ -81,14 +82,14 @@ const Event = () => {
           buttonTopContentLabel="Create Event"
           columns={COLUMN_LISTS_EVENT}
           data={dataEvents?.data || []}
-          emptyContent="Event is Empty"
-          isLoading={isLoadingEvents || isRefatchingEvents}
+          emptyContent="Event is empty"
+          isLoading={isLoadingEvents || isRefetchingEvents}
           onClickButtonTopContent={addEventModal.onOpen}
           renderCell={renderCell}
           totalPages={dataEvents?.pagination.totalPages}
         />
       )}
-      <AddEventModal refetchEvents={refetchEvents} {...addEventModal} />
+      <AddEventModal {...addEventModal} refetchEvents={refetchEvents} />
       <DeleteEventModal
         {...deleteEventModal}
         selectedId={selectedId}

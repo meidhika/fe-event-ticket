@@ -2,8 +2,8 @@ import { ToasterContext } from "@/contexts/ToasterContext";
 import eventServices from "@/services/event.service";
 import { IEvent, IEventForm } from "@/types/Event";
 import { toDateStandard } from "@/utils/date";
+import { DateValue } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { address } from "framer-motion/client";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 
@@ -12,7 +12,7 @@ const useDetailEvent = () => {
   const { setToaster } = useContext(ToasterContext);
 
   const getEventById = async () => {
-    const { data } = await eventServices.getEventById(`${query}`);
+    const { data } = await eventServices.getEventById(`${query.id}`);
     return data.data;
   };
 
@@ -34,32 +34,39 @@ const useDetailEvent = () => {
   } = useMutation({
     mutationFn: (payload: IEvent) => updateEvent(payload),
     onError: (error) => {
-      setToaster({ type: "error", message: error.message });
+      setToaster({
+        type: "error",
+        message: error.message,
+      });
     },
     onSuccess: () => {
       refetchEvent();
-      setToaster({ type: "success", message: "Success Update Event" });
+      setToaster({
+        type: "success",
+        message: "Success update event",
+      });
     },
   });
 
   const handleUpdateEvent = (data: IEvent) => mutateUpdateEvent(data);
+
   const handleUpdateInfo = (data: IEventForm) => {
     const payload = {
       ...data,
-      startDate: data.startDate ? toDateStandard(data.startDate) : "",
-      endDate: data.endDate ? toDateStandard(data.endDate) : "",
+      startDate: toDateStandard(data.startDate as DateValue),
+      endDate: toDateStandard(data.endDate as DateValue),
     };
     mutateUpdateEvent(payload);
   };
+
   const handleUpdateLocation = (data: IEventForm) => {
     const payload = {
-      isOnline: Boolean(data.isOnline),
+      ...data,
       location: {
         address: `${data.address}`,
         region: `${data.region}`,
         coordinates: [Number(data.latitude), Number(data.longitude)],
       },
-      banner: data.banner,
     };
     mutateUpdateEvent(payload);
   };
@@ -70,12 +77,13 @@ const useDetailEvent = () => {
       queryFn: () => eventServices.getRegencyById(dataEvent?.location?.region),
       enabled: !!dataEvent?.location?.region,
     });
+
   return {
     dataEvent,
-    handleUpdateInfo,
+    handleUpdateEvent,
     isPendingMutateUpdateEvent,
     isSuccessMutateUpdateEvent,
-    handleUpdateEvent,
+    handleUpdateInfo,
     handleUpdateLocation,
     dataDefaultRegion,
     isPendingDefaultRegion,

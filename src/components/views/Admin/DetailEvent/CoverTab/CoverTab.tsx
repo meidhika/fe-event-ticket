@@ -11,7 +11,7 @@ import Image from "next/image";
 import useCoverTab from "./useCoverTab";
 import { Controller } from "react-hook-form";
 import { useEffect } from "react";
-import { IEvent, IEventForm } from "@/types/Event";
+import { IEvent } from "@/types/Event";
 
 interface PropTypes {
   currentCover: string;
@@ -19,18 +19,21 @@ interface PropTypes {
   isPendingUpdate: boolean;
   isSuccessUpdate: boolean;
 }
+
 const CoverTab = (props: PropTypes) => {
   const { currentCover, onUpdate, isPendingUpdate, isSuccessUpdate } = props;
   const {
+    handleDeleteCover,
+    handleUploadCover,
+    isPendingMutateDeleteFile,
+    isPendingMutateUploadFile,
+
     controlUpdateCover,
     errorsUpdateCover,
     handleSubmitUpdateCover,
-    handleUploadCover,
-    handleDeleteCover,
     resetUpdateCover,
+
     preview,
-    isPendingMutateDeleteFile,
-    isPendingMutateUploadFile,
   } = useCoverTab();
 
   useEffect(() => {
@@ -38,13 +41,12 @@ const CoverTab = (props: PropTypes) => {
       resetUpdateCover();
     }
   }, [isSuccessUpdate]);
-
   return (
     <Card className="w-full p-4 lg:w-1/2">
       <CardHeader className="flex-col items-center">
         <h1 className="w-full text-xl font-bold">Event Cover</h1>
         <p className="w-full text-small text-default-400">
-          Manage cover Of This Event
+          Manage cover of this event
         </p>
       </CardHeader>
       <CardBody>
@@ -56,16 +58,15 @@ const CoverTab = (props: PropTypes) => {
             <p className="text-sm font-medium text-default-700">
               Current Cover
             </p>
-
             <Skeleton
               isLoaded={!!currentCover}
               className="aspect-video rounded-lg"
             >
               <Image
                 src={currentCover}
-                className="!relative rounded-lg"
                 alt="Cover"
                 fill
+                className="!relative rounded-lg"
               />
             </Skeleton>
           </div>
@@ -92,9 +93,9 @@ const CoverTab = (props: PropTypes) => {
             )}
           />
           <Button
+            type="submit"
             color="danger"
             className="mt-2 disabled:bg-default-500"
-            type="submit"
             disabled={isPendingMutateUploadFile || isPendingUpdate || !preview}
           >
             {isPendingUpdate ? (
@@ -108,4 +109,5 @@ const CoverTab = (props: PropTypes) => {
     </Card>
   );
 };
+
 export default CoverTab;

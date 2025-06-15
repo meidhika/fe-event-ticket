@@ -14,7 +14,6 @@ const useEvent = () => {
     if (currentSearch) {
       params += `&search=${currentSearch}`;
     }
-
     const res = await eventServices.getEvents(params);
     const { data } = res;
     return data;
@@ -23,18 +22,18 @@ const useEvent = () => {
   const {
     data: dataEvents,
     isLoading: isLoadingEvents,
-    isRefetching: isRefatchingEvents,
+    isRefetching: isRefetchingEvents,
     refetch: refetchEvents,
   } = useQuery({
     queryKey: ["Events", currentPage, currentLimit, currentSearch],
-    queryFn: getEvents,
+    queryFn: () => getEvents(),
     enabled: router.isReady && !!currentPage && !!currentLimit,
   });
 
   return {
     dataEvents,
     isLoadingEvents,
-    isRefatchingEvents,
+    isRefetchingEvents,
     refetchEvents,
 
     selectedId,

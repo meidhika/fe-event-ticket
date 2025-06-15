@@ -13,8 +13,8 @@ const DetailEvent = () => {
     isSuccessMutateUpdateEvent,
     handleUpdateInfo,
     handleUpdateLocation,
-    isPendingDefaultRegion,
     dataDefaultRegion,
+    isPendingDefaultRegion,
   } = useDetailEvent();
   return (
     <Tabs aria-label="Options">
@@ -44,7 +44,7 @@ const DetailEvent = () => {
           isSuccessUpdate={isSuccessMutateUpdateEvent}
         />
       </Tab>
-      <Tab key="ticket" title="Ticket">
+      <Tab key="ticket" title="ticket">
         <TicketTab />
       </Tab>
     </Tabs>

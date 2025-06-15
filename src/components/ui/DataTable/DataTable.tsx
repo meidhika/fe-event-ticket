@@ -15,20 +15,20 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import { Key, ReactNode, useMemo } from "react";
+import { ChangeEvent, Key, ReactNode, useMemo } from "react";
 import { CiSearch } from "react-icons/ci";
 
 interface PropTypes {
   buttonTopContentLabel?: string;
   columns: Record<string, unknown>[];
   data: Record<string, unknown>[];
-  isLoading?: boolean;
   emptyContent: string;
-  totalPages: number;
+  isLoading?: boolean;
   onClickButtonTopContent?: () => void;
+  renderCell: (item: Record<string, unknown>, columnKey: Key) => ReactNode;
   showLimit?: boolean;
   showSearch?: boolean;
-  renderCell: (item: Record<string, unknown>, columnKey: Key) => ReactNode;
+  totalPages: number;
 }
 
 const DataTable = (props: PropTypes) => {
@@ -40,23 +40,22 @@ const DataTable = (props: PropTypes) => {
     handleSearch,
     handleClearSearch,
   } = useChangeUrl();
-
   const {
+    buttonTopContentLabel,
     columns,
     data,
-    renderCell,
-    buttonTopContentLabel,
-    onClickButtonTopContent,
-    totalPages,
     emptyContent,
     isLoading,
+    onClickButtonTopContent,
+    renderCell,
     showLimit = true,
     showSearch = true,
+    totalPages,
   } = props;
 
   const TopContent = useMemo(() => {
     return (
-      <div className="flex flex-row-reverse justify-between gap-y-4 lg:flex-row lg:items-center">
+      <div className="flex flex-col-reverse items-start justify-between gap-y-4 lg:flex-row lg:items-center">
         {showSearch && (
           <Input
             isClearable
@@ -76,10 +75,11 @@ const DataTable = (props: PropTypes) => {
     );
   }, [
     buttonTopContentLabel,
-    handleClearSearch,
     handleSearch,
+    handleClearSearch,
     onClickButtonTopContent,
   ]);
+
   const BottomContent = useMemo(() => {
     return (
       <div className="flex items-center justify-center lg:justify-between">
@@ -90,7 +90,7 @@ const DataTable = (props: PropTypes) => {
             selectedKeys={[`${currentLimit}`]}
             selectionMode="single"
             onChange={handleChangeLimit}
-            startContent={<p className="text-small">Show: </p>}
+            startContent={<p className="text-small">Show:</p>}
             disallowEmptySelection
           >
             {LIMIT_LISTS.map((item) => (
@@ -104,10 +104,9 @@ const DataTable = (props: PropTypes) => {
           <Pagination
             isCompact
             showControls
-            size="sm"
-            total={totalPages}
             color="danger"
             page={Number(currentPage)}
+            total={totalPages}
             onChange={handleChangePage}
             loop
           />
@@ -115,6 +114,7 @@ const DataTable = (props: PropTypes) => {
       </div>
     );
   }, [currentLimit, currentPage, totalPages]);
+
   return (
     <Table
       bottomContent={BottomContent}
@@ -133,10 +133,11 @@ const DataTable = (props: PropTypes) => {
           </TableColumn>
         )}
       </TableHeader>
+
       <TableBody
-        items={data}
         emptyContent={emptyContent}
         isLoading={isLoading}
+        items={data}
         loadingContent={
           <div className="flex h-full w-full items-center justify-center bg-foreground-700/30 backdrop-blur-sm">
             <Spinner color="danger" />

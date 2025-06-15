@@ -2,11 +2,19 @@ import useMediaHandling from "@/hooks/useMediaHandling";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+
 const schemaUpdateCover = yup.object().shape({
-  banner: yup.mixed<FileList | string>().required("Please input Cover"),
+  banner: yup.mixed<FileList | string>().required("Please input cover"),
 });
 
 const useCoverTab = () => {
+  const {
+    handleUploadFile,
+    isPendingMutateUploadFile,
+    handleDeleteFile,
+    isPendingMutateDeleteFile,
+  } = useMediaHandling();
+
   const {
     control: controlUpdateCover,
     handleSubmit: handleSubmitUpdateCover,
@@ -15,14 +23,9 @@ const useCoverTab = () => {
     watch: watchUpdateCover,
     getValues: getValuesUpdateCover,
     setValue: setValueUpdateCover,
-  } = useForm({ resolver: yupResolver(schemaUpdateCover) });
-
-  const {
-    isPendingMutateUploadFile,
-    isPendingMutateDeleteFile,
-    handleDeleteFile,
-    handleUploadFile,
-  } = useMediaHandling();
+  } = useForm({
+    resolver: yupResolver(schemaUpdateCover),
+  });
 
   const preview = watchUpdateCover("banner");
   const fileUrl = getValuesUpdateCover("banner");
@@ -45,15 +48,17 @@ const useCoverTab = () => {
   };
 
   return {
+    handleDeleteCover,
+    handleUploadCover,
+    isPendingMutateDeleteFile,
+    isPendingMutateUploadFile,
+
     controlUpdateCover,
     errorsUpdateCover,
     handleSubmitUpdateCover,
-    handleUploadCover,
-    handleDeleteCover,
     resetUpdateCover,
+
     preview,
-    isPendingMutateDeleteFile,
-    isPendingMutateUploadFile,
   };
 };
 
