@@ -44,7 +44,7 @@ const DetailEvent = () => {
           isSuccessUpdate={isSuccessMutateUpdateEvent}
         />
       </Tab>
-      <Tab key="ticket" title="ticket">
+      <Tab key="ticket" title="Ticket">
         <TicketTab />
       </Tab>
     </Tabs>
