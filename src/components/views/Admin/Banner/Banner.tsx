@@ -8,6 +8,7 @@ import Image from "next/image";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import DropdownAction from "@/components/commons/DropdownAction";
 import AddBannerModal from "./AddBannerModal";
+import DeleteBannerModal from "./DeleteBannerModal";
 
 const Banner = () => {
   const { push, isReady, query } = useRouter();
@@ -85,12 +86,12 @@ const Banner = () => {
         />
       )}
       <AddBannerModal refetchBanners={refetchBanners} {...addBannerModal} />
-      {/* <DeleteBannerModal
+      <DeleteBannerModal
         {...deleteBannerModal}
         selectedId={selectedId}
         setSelectedId={setSelectedId}
-        refetchBanner={refetchBanners}
-      /> */}
+        refetchBanners={refetchBanners}
+      />
     </section>
   );
 };
