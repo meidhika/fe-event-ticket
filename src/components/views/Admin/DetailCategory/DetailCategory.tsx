@@ -20,7 +20,7 @@ const DetailCategory = () => {
           isSuccessUpdate={isSuccessMutateUpdateCategory}
         />
       </Tab>
-      <Tab key="info" title="Info">
+      <Tab key="info" title="info">
         <InfoTab
           dataCategory={dataCategory}
           onUpdate={handleUpdateCategory}
