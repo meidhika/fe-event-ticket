@@ -19,9 +19,7 @@ import useAddEventModal from "./useAddEventModal";
 import InputFile from "@/components/ui/InputFile";
 import { useEffect } from "react";
 import { ICategory } from "@/types/Category";
-import { data } from "framer-motion/client";
-import { IEvent, IRegency } from "@/types/Event";
-import { getLocalTimeZone, now } from "@internationalized/date";
+import { IRegency } from "@/types/Event";
 
 interface PropTypes {
   isOpen: boolean;
@@ -160,14 +158,14 @@ const AddEventModal = (props: PropTypes) => {
                 />
                 <Controller
                   control={control}
-                  name="isPublished"
+                  name="isPublish"
                   render={({ field }) => (
                     <Select
                       {...field}
                       label="Status"
                       variant="bordered"
-                      isInvalid={errors.isPublished !== undefined}
-                      errorMessage={errors.isPublished?.message}
+                      isInvalid={errors.isPublish !== undefined}
+                      errorMessage={errors.isPublish?.message}
                       disallowEmptySelection
                     >
                       <SelectItem key="true" value="true">
@@ -263,6 +261,20 @@ const AddEventModal = (props: PropTypes) => {
                         </AutocompleteItem>
                       )}
                     </Autocomplete>
+                  )}
+                />
+                <Controller
+                  control={control}
+                  name="address"
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      autoFocus
+                      label="Address"
+                      variant="bordered"
+                      isInvalid={errors.address !== undefined}
+                      errorMessage={errors.address?.message}
+                    />
                   )}
                 />
                 <Controller

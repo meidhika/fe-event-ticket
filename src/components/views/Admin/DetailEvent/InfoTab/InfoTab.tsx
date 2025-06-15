@@ -1,4 +1,4 @@
-import { IEvent, IEventForm } from "@/types/Event";
+import { IEventForm } from "@/types/Event";
 import {
   Autocomplete,
   AutocompleteItem,
@@ -14,12 +14,10 @@ import {
   Spinner,
   Textarea,
 } from "@nextui-org/react";
-import Image from "next/image";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import useInfoTab from "./useInfoTab";
 import { Controller } from "react-hook-form";
 import { ICategory } from "@/types/Category";
-import { getLocalTimeZone, now } from "@internationalized/date";
 import { toInputDate } from "@/utils/date";
 
 interface PropTypes {
@@ -48,7 +46,7 @@ const InfoTab = (props: PropTypes) => {
       setValueUpdateInfo("category", `${dataEvent?.category}`);
       setValueUpdateInfo("startDate", toInputDate(`${dataEvent?.startDate}`));
       setValueUpdateInfo("endDate", toInputDate(`${dataEvent?.endDate}`));
-      setValueUpdateInfo("isPublished", `${dataEvent?.isPublished}`);
+      setValueUpdateInfo("isPublish", `${dataEvent?.isPublish}`);
       setValueUpdateInfo("isFeatured", `${dataEvent?.isFeatured}`);
     }
   }, [dataEvent]);
@@ -172,17 +170,17 @@ const InfoTab = (props: PropTypes) => {
           <Skeleton isLoaded={!!dataEvent} className="rounded-lg">
             <Controller
               control={controlUpdateInfo}
-              name="isPublished"
+              name="isPublish"
               render={({ field }) => (
                 <Select
                   {...field}
                   label="Status"
                   variant="bordered"
-                  isInvalid={errorsUpdateInfo.isPublished !== undefined}
-                  errorMessage={errorsUpdateInfo.isPublished?.message}
+                  isInvalid={errorsUpdateInfo.isPublish !== undefined}
+                  errorMessage={errorsUpdateInfo.isPublish?.message}
                   disallowEmptySelection
                   defaultSelectedKeys={[
-                    dataEvent?.isPublished ? "true" : "false",
+                    dataEvent?.isPublish ? "true" : "false",
                   ]}
                 >
                   <SelectItem key="true" value="true">

@@ -12,6 +12,7 @@ const useLocationTab = () => {
   const debounce = useDebounce();
   const schemaUpdateLocation = yup.object().shape({
     isOnline: yup.string().required("Please select online or offline"),
+    address: yup.string().required("Please input address"),
     region: yup.string().required("Please select region"),
     latitude: yup.string().required("Please input latitude coordinate"),
     longitude: yup.string().required("Please input longitude coordinate"),

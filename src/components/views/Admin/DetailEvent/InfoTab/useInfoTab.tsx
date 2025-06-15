@@ -13,12 +13,8 @@ const useInfoTab = () => {
     category: yup.string().required("Please input category"),
     startDate: yup.mixed<DateValue>().required("Please input start date"),
     endDate: yup.mixed<DateValue>().required("Please input end date"),
-    isPublished: yup.string().required("Please select status"),
+    isPublish: yup.string().required("Please select status"),
     isFeatured: yup.string().required("Please select featured"),
-    // isOnline: yup.string().required("Please select online or offline"),
-    // region: yup.string().required("Please select region"),
-    // latitude: yup.string().required("Please input latitude coordinate"),
-    // longitude: yup.string().required("Please input longitude coordinate"),
   });
 
   const {
