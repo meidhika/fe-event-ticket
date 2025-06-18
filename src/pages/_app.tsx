@@ -1,8 +1,10 @@
 import AppShell from "@/components/commons/AppShell";
 import { ToasterProvider } from "@/contexts/ToasterContext";
+import { onErrorHander } from "@/libs/axios/responseHanlder";
 import "@/styles/globals.css";
 import { NextUIProvider } from "@nextui-org/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { on } from "events";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 
@@ -11,6 +13,13 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       retry: false,
+      throwOnError(error) {
+        onErrorHander(error);
+        return false;
+      },
+    },
+    mutations: {
+      onError: onErrorHander,
     },
   },
 });

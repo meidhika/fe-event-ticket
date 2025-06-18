@@ -16,7 +16,7 @@ const DashboardLayout = (props: PropTypes) => {
   return (
     <>
       <PageHead title={title} />
-      <div className="max-w-screen-3xl 3-xl:containet flex">
+      <div className="3-xl:container flex max-w-screen-2xl">
         <DashboardLayoutSidebar
           sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_MEMBER}
           isOpen={Open}
@@ -28,7 +28,7 @@ const DashboardLayout = (props: PropTypes) => {
             classNames={{ wrapper: "p-0" }}
             position="static"
           >
-            <h1 className="text-3xl font-bold">{title}</h1>
+            <h1 className="text-2xl font-bold">{title}</h1>
             <NavbarMenuToggle
               aria-label={Open ? "Close menu" : "Open menu"}
               onPress={() => setOpen(!Open)}

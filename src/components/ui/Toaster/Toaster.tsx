@@ -4,8 +4,8 @@ import { CiCircleCheck, CiCircleRemove } from "react-icons/ci";
 const iconList: {
   [key: string]: ReactNode;
 } = {
-  success: <CiCircleCheck className="text-3xl text-success-500" />,
-  error: <CiCircleRemove className="text-3xl text-danger-500" />,
+  success: <CiCircleCheck className="text-2xl text-success-500" />,
+  error: <CiCircleRemove className="text-2xl text-danger-500" />,
 };
 
 interface PropTypes {
