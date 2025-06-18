@@ -2,8 +2,8 @@ import { DateValue } from "@nextui-org/react";
 import { StringDecoder } from "string_decoder";
 
 interface IRegency {
-  name: string;
   id: string;
+  name: string;
 }
 
 interface IEvent {
@@ -26,10 +26,10 @@ interface IEvent {
 }
 
 interface IEventForm extends IEvent {
-  region?: string;
   address?: string;
   latitude?: string;
   longitude?: string;
+  region?: string;
 }
 
-export type { IEvent, IRegency, IEventForm };
+export type { IRegency, IEvent, IEventForm };

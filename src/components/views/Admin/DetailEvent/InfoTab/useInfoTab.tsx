@@ -5,25 +5,27 @@ import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-const useInfoTab = () => {
-  const schemaUpdateInfo = yup.object().shape({
-    name: yup.string().required("Please input name "),
-    slug: yup.string().required("Please input slug"),
-    description: yup.string().required("Please input description"),
-    category: yup.string().required("Please input category"),
-    startDate: yup.mixed<DateValue>().required("Please input start date"),
-    endDate: yup.mixed<DateValue>().required("Please input end date"),
-    isPublish: yup.string().required("Please select status"),
-    isFeatured: yup.string().required("Please select featured"),
-  });
+const schemaUpdateInfo = yup.object().shape({
+  name: yup.string().required("Please input name"),
+  description: yup.string().required("Plese input description"),
+  slug: yup.string().required("Please input slug"),
+  category: yup.string().required("Please select category"),
+  startDate: yup.mixed<DateValue>().required("Please select start date"),
+  endDate: yup.mixed<DateValue>().required("Please select end date"),
+  isPublish: yup.string().required("Please select status"),
+  isFeatured: yup.string().required("Please select featured"),
+});
 
+const useInfoTab = () => {
   const {
     control: controlUpdateInfo,
     handleSubmit: handleSubmitUpdateInfo,
     formState: { errors: errorsUpdateInfo },
     reset: resetUpdateInfo,
     setValue: setValueUpdateInfo,
-  } = useForm({ resolver: yupResolver(schemaUpdateInfo) });
+  } = useForm({
+    resolver: yupResolver(schemaUpdateInfo),
+  });
 
   const { data: dataCategory } = useQuery({
     queryKey: ["Categories"],
@@ -33,8 +35,8 @@ const useInfoTab = () => {
 
   return {
     controlUpdateInfo,
-    handleSubmitUpdateInfo,
     errorsUpdateInfo,
+    handleSubmitUpdateInfo,
     resetUpdateInfo,
     setValueUpdateInfo,
 

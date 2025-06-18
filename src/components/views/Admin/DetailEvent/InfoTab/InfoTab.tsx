@@ -133,15 +133,15 @@ const InfoTab = (props: PropTypes) => {
           </Skeleton>
           <Skeleton isLoaded={!!dataEvent?.startDate} className="rounded-lg">
             <Controller
-              control={controlUpdateInfo}
               name="startDate"
+              control={controlUpdateInfo}
               render={({ field }) => (
                 <DatePicker
                   {...field}
                   label="Start Date"
+                  labelPlacement="outside"
                   variant="bordered"
                   hideTimeZone
-                  labelPlacement="outside"
                   showMonthAndYearPickers
                   isInvalid={errorsUpdateInfo.startDate !== undefined}
                   errorMessage={errorsUpdateInfo.startDate?.message}
