@@ -5,7 +5,9 @@ const LIMIT_LISTS = [
 ];
 
 const LIMIT_DEFAULT = LIMIT_LISTS[0].value;
+
 const PAGE_DEFAULT = 1;
+
 const DELAY = 1000;
 
 const LIMIT_BANNER = 5;
