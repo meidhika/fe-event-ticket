@@ -15,6 +15,9 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
   Link,
+  Listbox,
+  ListboxItem,
+  Spinner,
 } from "@nextui-org/react";
 import Image from "next/image";
 import { BUTTON_ITEMS, NAV_ITEMS } from "../LandingPageLayout.constants";
@@ -24,11 +27,21 @@ import { CiSearch } from "react-icons/ci";
 import { signOut, useSession } from "next-auth/react";
 import useLandingPageLayoutNavbar from "./useLandingPageLayoutNavbar";
 import { Fragment } from "react";
+import { IEvent } from "@/types/Event";
 
 const LandingPageLayoutNavbar = () => {
   const router = useRouter();
   const session = useSession();
-  const { dataProfile } = useLandingPageLayoutNavbar();
+  const {
+    dataProfile,
+    dataEventsSearch,
+    isLoadingEventsSearch,
+    isRefetchingEventsSearch,
+    handleSearch,
+    search,
+    setSearch,
+  } = useLandingPageLayoutNavbar();
+
   return (
     <Navbar maxWidth="full" isBordered isBlurred={false} shouldHideOnScroll>
       <div className="flex items-center gap-8">
@@ -58,15 +71,45 @@ const LandingPageLayoutNavbar = () => {
       </div>
       <NavbarContent justify="end">
         <NavbarMenuToggle className="lg:hidden" />
+
         <NavbarItem className="hidden lg:relative lg:flex">
           <Input
             isClearable
-            className="w-[300]"
+            className="w-[300px]"
             placeholder="Search Event"
             startContent={<CiSearch />}
-            onClear={() => {}}
-            onChange={() => {}}
+            onClear={() => setSearch("")}
+            onChange={handleSearch}
           />
+          {search !== "" && (
+            <Listbox
+              items={dataEventsSearch?.data || []}
+              className="absolute right-0 top-12 rounded-xl border bg-white"
+            >
+              {!isRefetchingEventsSearch && !isLoadingEventsSearch ? (
+                (item: IEvent) => (
+                  <ListboxItem key={item._id} href={`/event/${item.slug}`}>
+                    <div className="flex items-center gap-2">
+                      <Image
+                        src={`${item.banner}`}
+                        alt={`${item.name}`}
+                        className="w-2/5 rounded-md"
+                        width={100}
+                        height={40}
+                      />
+                      <p className="line-clamp-2 w-3/5 text-wrap">
+                        {item.name}
+                      </p>
+                    </div>
+                  </ListboxItem>
+                )
+              ) : (
+                <ListboxItem key="loading">
+                  <Spinner color="danger" size="sm" />
+                </ListboxItem>
+              )}
+            </Listbox>
+          )}
         </NavbarItem>
         {session.status === "authenticated" ? (
           <NavbarItem className="hidden lg:block">
@@ -81,7 +124,7 @@ const LandingPageLayoutNavbar = () => {
               <DropdownMenu>
                 <DropdownItem
                   key="admin"
-                  href="/admin/dashboard"
+                  href="/admin/event"
                   className={cn({
                     hidden: dataProfile?.role !== "admin",
                   })}
@@ -92,7 +135,7 @@ const LandingPageLayoutNavbar = () => {
                   Profile
                 </DropdownItem>
                 <DropdownItem key="signout" onPress={() => signOut()}>
-                  Logout
+                  Log Out
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -122,7 +165,7 @@ const LandingPageLayoutNavbar = () => {
                 className={cn(
                   "font-medium text-default-700 hover:text-danger",
                   {
-                    "font-bold text-danger-500": router.pathname === item.href,
+                    "font-bold text-danger": router.pathname === item.href,
                   },
                 )}
               >
@@ -133,27 +176,34 @@ const LandingPageLayoutNavbar = () => {
           {session.status === "authenticated" ? (
             <Fragment>
               <NavbarMenuItem
-                className={cn(
-                  "font-medium text-default-700 hover:text-danger",
-                  {
-                    hidden: dataProfile?.role !== "admin",
-                  },
-                )}
+                className={cn({
+                  hidden: dataProfile?.role !== "admin",
+                })}
               >
-                <Link href="/admin/dashboard">Admin</Link>
+                <Link
+                  href="/admin/event"
+                  className="font-medium text-default-700 hover:text-danger"
+                >
+                  Admin
+                </Link>
               </NavbarMenuItem>
-              <NavbarMenuItem className="font-medium text-default-700 hover:text-danger">
-                <Link href="/member/profile">Profile</Link>
+              <NavbarMenuItem>
+                <Link
+                  className="font-medium text-default-700 hover:text-danger"
+                  href="/member/profile"
+                >
+                  Profile
+                </Link>
               </NavbarMenuItem>
               <NavbarMenuItem>
                 <Button
-                  className="mt-2 w-full"
                   color="danger"
                   onPress={() => signOut()}
+                  className="mt-2 w-full"
                   variant="bordered"
                   size="md"
                 >
-                  Logout
+                  Log Out
                 </Button>
               </NavbarMenuItem>
             </Fragment>
@@ -166,8 +216,8 @@ const LandingPageLayoutNavbar = () => {
                     color="danger"
                     href={item.href}
                     fullWidth
-                    size="md"
                     variant={item.variant as ButtonProps["variant"]}
+                    size="md"
                   >
                     {item.label}
                   </Button>

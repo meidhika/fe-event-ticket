@@ -7,13 +7,14 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 interface PropTypes {
-  event?: IEvent;
   className?: string;
-  key?: string;
+  event?: IEvent;
   isLoading?: boolean;
+  key?: string;
 }
+
 const CardEvent = (props: PropTypes) => {
-  const { event, className, key, isLoading } = props;
+  const { className, event, isLoading, key } = props;
   return (
     <Card
       shadow="sm"
@@ -31,7 +32,7 @@ const CardEvent = (props: PropTypes) => {
               src={`${event?.banner}`}
               width={1920}
               height={1080}
-              className="aspect-video rounded-lg object-cover"
+              className="aspect-video w-full rounded-lg object-cover"
             />
           </CardBody>
           <CardFooter className="flex-col items-start pt-0 text-left">
@@ -39,7 +40,7 @@ const CardEvent = (props: PropTypes) => {
               {event?.name}
             </h2>
             <p className="mb-2 line-clamp-2">{event?.description}</p>
-            <p className="w-full text-foreground-500">
+            <p className="text-foreground-500">
               {convertTime(`${event?.startDate}`)}
             </p>
           </CardFooter>
@@ -47,7 +48,7 @@ const CardEvent = (props: PropTypes) => {
       ) : (
         <Fragment>
           <CardBody>
-            <Skeleton className="aspect-video w-full rounded-lg bg-default-300"></Skeleton>
+            <Skeleton className="aspect-video w-full rounded-lg bg-default-300" />
           </CardBody>
           <CardFooter className="flex flex-col items-start gap-2">
             <Skeleton className="h-4 w-3/5 rounded-lg bg-default-200" />
