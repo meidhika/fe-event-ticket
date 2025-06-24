@@ -29,7 +29,7 @@ const DetailEvent = () => {
   return (
     <div className="px-8 md:px-0">
       <Script
-        src={environment.MIDTRANS_SNAP_JS_URL}
+        src={environment.MIDTRANS_SNAP_URL}
         data-client-key={environment.MIDTRANS_CLIENT_KEY}
         strategy="lazyOnload"
       />
