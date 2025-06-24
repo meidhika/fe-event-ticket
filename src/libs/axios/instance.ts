@@ -6,6 +6,7 @@ import { getSession } from "next-auth/react";
 const headers = {
   "Content-Type": "application/json",
 };
+
 const instance = axios.create({
   baseURL: environment.API_URL,
   headers,
@@ -24,9 +25,7 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  async (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => Promise.reject(error),
 );
 

@@ -1,4 +1,4 @@
-import { Controller, set } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import useEventFilter from "./useEventFilter";
 import {
   Autocomplete,
@@ -6,21 +6,21 @@ import {
   Select,
   SelectItem,
   Skeleton,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { ICategory } from "@/types/Category";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import { Fragment, useEffect } from "react";
 
 const EventFilter = () => {
-  const { control, dataCategory, isSuccessGetCategory, setValue } =
+  const { control, setValue, dataCategory, isSuccessGetCategory } =
     useEventFilter();
   const {
     handleChangeCategory,
+    handleChangeIsOnline,
+    handleChangeIsFeatured,
     currentCategory,
     currentIsOnline,
-    handleChangeIsOnline,
     currentIsFeatured,
-    handleChangeIsFeatured,
   } = useChangeUrl();
 
   useEffect(() => {
@@ -32,27 +32,27 @@ const EventFilter = () => {
   }, [isSuccessGetCategory]);
 
   return (
-    <div className="h-fit w-full rounded-xl border border-gray-200 p-4 lg:sticky lg:top-20 lg:w-80">
+    <div className="h-fit w-full rounded-xl border p-4 lg:sticky lg:top-20 lg:w-80">
       <h4 className="text-xl font-semibold">Filter</h4>
       <div className="mt-4 flex flex-col gap-4">
         {isSuccessGetCategory ? (
           <Fragment>
             <Controller
-              control={control}
               name="category"
+              control={control}
               render={({ field: { onChange, ...field } }) => (
                 <Autocomplete
                   {...field}
                   defaultSelectedKey={`${currentCategory}`}
                   defaultItems={dataCategory?.data.data || []}
                   label="Category"
-                  variant="bordered"
                   labelPlacement="outside"
+                  variant="bordered"
                   onSelectionChange={(value) => {
                     onChange(value);
                     handleChangeCategory(value !== null ? `${value}` : "");
                   }}
-                  placeholder="Search Category Here"
+                  placeholder="Search category here..."
                 >
                   {(category: ICategory) => (
                     <AutocompleteItem key={`${category._id}`}>
@@ -63,46 +63,38 @@ const EventFilter = () => {
               )}
             />
             <Controller
-              control={control}
               name="isOnline"
+              control={control}
               render={({ field: { onChange, ...field } }) => (
                 <Select
                   {...field}
                   label="Online / Offline"
-                  variant="bordered"
                   labelPlacement="outside"
-                  placeholder="Select Online / Offline"
+                  placeholder="Select online / offline"
+                  variant="bordered"
                   defaultSelectedKeys={[`${currentIsOnline}`]}
                   onChange={(e) => handleChangeIsOnline(e.target.value)}
                 >
-                  <SelectItem key="true" value="true">
-                    Online
-                  </SelectItem>
-                  <SelectItem key="false" value="false">
-                    Offline
-                  </SelectItem>
+                  <SelectItem key="true">Online</SelectItem>
+                  <SelectItem key="false">Offline</SelectItem>
                 </Select>
               )}
             />
             <Controller
-              control={control}
               name="isFeatured"
+              control={control}
               render={({ field: { onChange, ...field } }) => (
                 <Select
                   {...field}
                   label="Featured"
-                  variant="bordered"
                   labelPlacement="outside"
                   placeholder="Select Featured Event"
+                  variant="bordered"
                   defaultSelectedKeys={[`${currentIsFeatured}`]}
                   onChange={(e) => handleChangeIsFeatured(e.target.value)}
                 >
-                  <SelectItem key="true" value="true">
-                    Yes
-                  </SelectItem>
-                  <SelectItem key="false" value="false">
-                    No
-                  </SelectItem>
+                  <SelectItem key="true">Yes</SelectItem>
+                  <SelectItem key="false">No</SelectItem>
                 </Select>
               )}
             />

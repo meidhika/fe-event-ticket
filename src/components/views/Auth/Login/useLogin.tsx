@@ -7,7 +7,7 @@ import authServices from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
-import { toggle } from "@nextui-org/react";
+import { toggle } from "@heroui/react";
 import { ToasterContext } from "@/contexts/ToasterContext";
 
 const loginSchema = yup.object().shape({

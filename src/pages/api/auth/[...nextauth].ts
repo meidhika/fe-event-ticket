@@ -25,15 +25,21 @@ export default NextAuth({
           identifier: string;
           password: string;
         };
-        const result = await authServices.login({ identifier, password });
+
+        const result = await authServices.login({
+          identifier,
+          password,
+        });
+
         const accessToken = result.data.data;
+
         const me = await authServices.getProfileWithToken(accessToken);
         const user = me.data.data;
 
         if (
           accessToken &&
-          user._id &&
           result.status === 200 &&
+          user._id &&
           me.status === 200
         ) {
           user.accessToken = accessToken;
@@ -55,6 +61,7 @@ export default NextAuth({
       if (user) {
         token.user = user;
       }
+
       return token;
     },
     async session({

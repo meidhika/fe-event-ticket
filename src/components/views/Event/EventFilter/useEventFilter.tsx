@@ -19,11 +19,12 @@ const useEventFilter = () => {
     queryKey: ["Categories"],
     queryFn: () => categoryServices.getCategories(),
   });
+
   return {
     control,
+    setValue,
     dataCategory,
     isSuccessGetCategory,
-    setValue,
   };
 };
 

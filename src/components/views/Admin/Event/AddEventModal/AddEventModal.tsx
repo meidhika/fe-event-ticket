@@ -13,9 +13,9 @@ import {
   SelectItem,
   Spinner,
   Textarea,
-} from "@nextui-org/react";
-import { Controller } from "react-hook-form";
+} from "@heroui/react";
 import useAddEventModal from "./useAddEventModal";
+import { Controller } from "react-hook-form";
 import InputFile from "@/components/ui/InputFile";
 import { useEffect } from "react";
 import { ICategory } from "@/types/Category";
@@ -28,13 +28,14 @@ interface PropTypes {
   onOpenChange: () => void;
   refetchEvents: () => void;
 }
+
 const AddEventModal = (props: PropTypes) => {
   const { isOpen, onClose, onOpenChange, refetchEvents } = props;
   const {
     control,
     errors,
-    handleAddEvent,
     handleSubmitForm,
+    handleAddEvent,
     isPendingMutateAddEvent,
     isSuccessMutateAddEvent,
     setValue,
@@ -44,7 +45,8 @@ const AddEventModal = (props: PropTypes) => {
     isPendingMutateUploadFile,
     handleDeleteBanner,
     isPendingMutateDeleteFile,
-    hanldeOnClose,
+    handleOnClose,
+
     dataCategory,
     dataRegion,
     searchRegency,
@@ -67,13 +69,14 @@ const AddEventModal = (props: PropTypes) => {
     setValue("startDate", now(getLocalTimeZone()));
     setValue("endDate", now(getLocalTimeZone()));
   }, [onOpenChange]);
+
   return (
     <Modal
       onOpenChange={onOpenChange}
       isOpen={isOpen}
       placement="center"
       scrollBehavior="inside"
-      onClose={() => hanldeOnClose(onClose)}
+      onClose={() => handleOnClose(onClose)}
     >
       <form onSubmit={handleSubmitForm(handleAddEvent)}>
         <ModalContent className="m-4">
@@ -83,8 +86,8 @@ const AddEventModal = (props: PropTypes) => {
               <p className="text-sm font-bold">Information</p>
               <div className="mb-4 flex flex-col gap-4">
                 <Controller
-                  control={control}
                   name="name"
+                  control={control}
                   render={({ field }) => (
                     <Input
                       {...field}
@@ -97,8 +100,8 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  control={control}
                   name="slug"
+                  control={control}
                   render={({ field }) => (
                     <Input
                       {...field}
@@ -110,19 +113,18 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  control={control}
                   name="category"
+                  control={control}
                   render={({ field: { onChange, ...field } }) => (
                     <Autocomplete
                       {...field}
                       defaultItems={dataCategory?.data.data || []}
                       label="Category"
                       variant="bordered"
-                      type="text"
                       isInvalid={errors.category !== undefined}
                       errorMessage={errors.category?.message}
                       onSelectionChange={(value) => onChange(value)}
-                      placeholder="Search Category Here"
+                      placeholder="Search category here..."
                     >
                       {(category: ICategory) => (
                         <AutocompleteItem key={`${category._id}`}>
@@ -133,8 +135,8 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  control={control}
                   name="startDate"
+                  control={control}
                   render={({ field }) => (
                     <DatePicker
                       {...field}
@@ -148,8 +150,8 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  control={control}
                   name="endDate"
+                  control={control}
                   render={({ field }) => (
                     <DatePicker
                       {...field}
@@ -163,8 +165,8 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  control={control}
                   name="isPublish"
+                  control={control}
                   render={({ field }) => (
                     <Select
                       {...field}
@@ -174,18 +176,14 @@ const AddEventModal = (props: PropTypes) => {
                       errorMessage={errors.isPublish?.message}
                       disallowEmptySelection
                     >
-                      <SelectItem key="true" value="true">
-                        Publish
-                      </SelectItem>
-                      <SelectItem key="false" value="false">
-                        Draft
-                      </SelectItem>
+                      <SelectItem key="true">Publish</SelectItem>
+                      <SelectItem key="false">Draft</SelectItem>
                     </Select>
                   )}
                 />
                 <Controller
-                  control={control}
                   name="isFeatured"
+                  control={control}
                   render={({ field }) => (
                     <Select
                       {...field}
@@ -195,19 +193,14 @@ const AddEventModal = (props: PropTypes) => {
                       errorMessage={errors.isFeatured?.message}
                       disallowEmptySelection
                     >
-                      <SelectItem key="true" value="true">
-                        Yes
-                      </SelectItem>
-                      <SelectItem key="false" value="false">
-                        No
-                      </SelectItem>
+                      <SelectItem key="true">Yes</SelectItem>
+                      <SelectItem key="false">No</SelectItem>
                     </Select>
                   )}
                 />
-
                 <Controller
-                  control={control}
                   name="description"
+                  control={control}
                   render={({ field }) => (
                     <Textarea
                       {...field}
@@ -222,8 +215,8 @@ const AddEventModal = (props: PropTypes) => {
               <p className="text-sm font-bold">Location</p>
               <div className="mb-4 flex flex-col gap-4">
                 <Controller
-                  control={control}
                   name="isOnline"
+                  control={control}
                   render={({ field }) => (
                     <Select
                       {...field}
@@ -233,18 +226,14 @@ const AddEventModal = (props: PropTypes) => {
                       errorMessage={errors.isOnline?.message}
                       disallowEmptySelection
                     >
-                      <SelectItem key="true" value="true">
-                        Online
-                      </SelectItem>
-                      <SelectItem key="false" value="false">
-                        Offline
-                      </SelectItem>
+                      <SelectItem key="true">Online</SelectItem>
+                      <SelectItem key="false">Offline</SelectItem>
                     </Select>
                   )}
                 />
                 <Controller
-                  control={control}
                   name="region"
+                  control={control}
                   render={({ field: { onChange, ...field } }) => (
                     <Autocomplete
                       {...field}
@@ -256,11 +245,10 @@ const AddEventModal = (props: PropTypes) => {
                       label="City"
                       variant="bordered"
                       onInputChange={(search) => handleSearchRegion(search)}
-                      type="text"
                       isInvalid={errors.region !== undefined}
                       errorMessage={errors.region?.message}
                       onSelectionChange={(value) => onChange(value)}
-                      placeholder="Search City Here"
+                      placeholder="Search city here..."
                     >
                       {(regency: IRegency) => (
                         <AutocompleteItem key={`${regency.id}`}>
@@ -271,12 +259,11 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  control={control}
                   name="address"
+                  control={control}
                   render={({ field }) => (
                     <Input
                       {...field}
-                      autoFocus
                       label="Address"
                       variant="bordered"
                       isInvalid={errors.address !== undefined}
@@ -285,12 +272,11 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  control={control}
                   name="latitude"
+                  control={control}
                   render={({ field }) => (
                     <Input
                       {...field}
-                      autoFocus
                       label="Latitude"
                       variant="bordered"
                       isInvalid={errors.latitude !== undefined}
@@ -299,12 +285,11 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  control={control}
                   name="longitude"
+                  control={control}
                   render={({ field }) => (
                     <Input
                       {...field}
-                      autoFocus
                       label="Longitude"
                       variant="bordered"
                       isInvalid={errors.longitude !== undefined}
@@ -337,7 +322,7 @@ const AddEventModal = (props: PropTypes) => {
             <Button
               color="danger"
               variant="flat"
-              onPress={() => hanldeOnClose(onClose)}
+              onPress={() => handleOnClose(onClose)}
               disabled={disabledSubmit}
             >
               Cancel

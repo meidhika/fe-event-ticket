@@ -1,4 +1,3 @@
-import { hr } from "framer-motion/client";
 import {
   FaFacebook,
   FaInstagram,
@@ -8,53 +7,39 @@ import {
 } from "react-icons/fa6";
 
 const NAV_ITEMS = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Explore",
-    href: "/event",
-  },
+  { label: "Home", href: "/" },
+  { label: "Explore", href: "/event" },
 ];
 
 const BUTTON_ITEMS = [
-  {
-    label: "LOGIN",
-    href: "/auth/login",
-    variant: "solid",
-  },
-  {
-    label: "REGISTER",
-    href: "/auth/register",
-    variant: "bordered",
-  },
+  { label: "Register", href: "/auth/register", variant: "bordered" },
+  { label: "Login", href: "/auth/login", variant: "solid" },
 ];
 
 const SOCIAL_ITEMS = [
   {
     label: "Facebook",
-    href: "https://facebook.com",
+    href: "https://facebook.com/acara",
     icon: <FaFacebook />,
   },
   {
     label: "Instagram",
-    href: "https://instagram.com",
+    href: "https://instagram.com/@acara",
     icon: <FaInstagram />,
   },
   {
-    label: "Tiktok",
-    href: "https://tiktok.com",
+    label: "TikTok",
+    href: "https://tiktok.com/@acara",
     icon: <FaTiktok />,
   },
   {
     label: "Twitter",
-    href: "https://twitter.com",
+    href: "https://twitter.com/@acara",
     icon: <FaTwitter />,
   },
   {
-    label: "Youtube",
-    href: "https://youtube.com",
+    label: "YouTube",
+    href: "https://youtube.com/@acara",
     icon: <FaYoutube />,
   },
 ];

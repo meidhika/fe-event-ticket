@@ -7,7 +7,7 @@ import {
   CardHeader,
   Skeleton,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import usePictureTab from "./usePictureTab";
 import { Controller } from "react-hook-form";
 import { useEffect } from "react";

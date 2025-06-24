@@ -7,7 +7,7 @@ import {
   CardBody,
   CardHeader,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Fragment, Key, ReactNode, useCallback, useState } from "react";
 import { COLUMN_LISTS_TICKET } from "./TicketTab.constants";
 import useTicketTab from "./useTicketTab";

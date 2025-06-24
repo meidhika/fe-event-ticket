@@ -4,7 +4,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
 import Image from "next/image";
 
 interface PropTypes {

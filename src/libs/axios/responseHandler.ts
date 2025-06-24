@@ -6,6 +6,7 @@ interface ErrorResponseData {
     name: string;
   };
 }
+
 const onErrorHander = (error: Error) => {
   const { response } = error as AxiosError;
   const res = response?.data as ErrorResponseData;

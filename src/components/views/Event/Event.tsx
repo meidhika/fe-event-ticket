@@ -10,8 +10,7 @@ import Image from "next/image";
 
 const Event = () => {
   const router = useRouter();
-  const { dataEvents, isLoadingEvents, isRefetchingEvents, refetchEvents } =
-    useEvent();
+  const { dataEvents, isLoadingEvents, isRefetchingEvents } = useEvent();
   const { setUrlExplore } = useChangeUrl();
 
   useEffect(() => {
@@ -35,18 +34,20 @@ const Event = () => {
                 />
               ))}
         </div>
+
         {!isLoadingEvents && dataEvents?.data?.length > 0 && (
           <EventFooter totalPages={dataEvents?.pagination?.totalPages} />
         )}
+
         {dataEvents?.data?.length < 1 &&
           !isLoadingEvents &&
           !isRefetchingEvents && (
             <div className="flex flex-col items-center justify-center gap-4 py-20">
               <Image
                 src="/images/illustrations/no-data.svg"
-                alt="not-data"
-                width={300}
-                height={300}
+                alt="no-data"
+                width={200}
+                height={200}
               />
               <h2 className="text-center text-2xl font-bold text-danger">
                 Event is empty

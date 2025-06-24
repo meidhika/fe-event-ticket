@@ -11,7 +11,7 @@ import {
   SelectItem,
   Skeleton,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import useLocationTab from "./useLocationTab";
@@ -96,12 +96,8 @@ const LocationTab = (props: PropTypes) => {
                   disallowEmptySelection
                   defaultSelectedKeys={[dataEvent?.isOnline ? "true" : "false"]}
                 >
-                  <SelectItem key="true" value="true">
-                    Online
-                  </SelectItem>
-                  <SelectItem key="false" value="false">
-                    Offline
-                  </SelectItem>
+                  <SelectItem key="true">Online</SelectItem>
+                  <SelectItem key="false">Offline</SelectItem>
                 </Select>
               )}
             />

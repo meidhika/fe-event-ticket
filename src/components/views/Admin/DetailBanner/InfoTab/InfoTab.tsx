@@ -10,7 +10,7 @@ import {
   Skeleton,
   Spinner,
   Textarea,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useEffect } from "react";
 import useInfoTab from "./useInfoTab";
 import { Controller } from "react-hook-form";
@@ -89,12 +89,8 @@ const InfoTab = (props: PropTypes) => {
                   labelPlacement="outside"
                   defaultSelectedKeys={[dataBanner?.isShow ? "true" : "false"]}
                 >
-                  <SelectItem key="true" value="true">
-                    Show
-                  </SelectItem>
-                  <SelectItem key="false" value="false">
-                    Hide
-                  </SelectItem>
+                  <SelectItem key="true">Show</SelectItem>
+                  <SelectItem key="false">Hide</SelectItem>
                 </Select>
               )}
             />

@@ -1,5 +1,5 @@
 import { cn } from "@/utils/cn";
-import { Button, Spinner } from "@nextui-org/react";
+import { Button, Spinner } from "@heroui/react";
 import Image from "next/image";
 import {
   ChangeEvent,
@@ -14,16 +14,17 @@ import { CiSaveUp2, CiTrash } from "react-icons/ci";
 interface PropTypes {
   className?: string;
   errorMessage?: string;
-  isDropable?: boolean;
-  isUploading?: boolean;
   isDeleting?: boolean;
+  isDropable?: boolean;
   isInvalid?: boolean;
+  isUploading?: boolean;
   label?: ReactNode;
   name: string;
   onUpload?: (files: FileList) => void;
   onDelete?: () => void;
   preview?: string;
 }
+
 const InputFile = (props: PropTypes) => {
   const {
     className,
@@ -38,7 +39,6 @@ const InputFile = (props: PropTypes) => {
     onDelete,
     preview,
   } = props;
-
   const drop = useRef<HTMLLabelElement>(null);
   const dropzoneId = useId();
 
@@ -57,13 +57,6 @@ const InputFile = (props: PropTypes) => {
     }
   };
 
-  const handleOnUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.currentTarget.files;
-    if (files && onUpload) {
-      onUpload(files);
-    }
-  };
-
   useEffect(() => {
     const dropCurrent = drop.current;
     if (dropCurrent) {
@@ -76,6 +69,14 @@ const InputFile = (props: PropTypes) => {
       };
     }
   }, []);
+
+  const handleOnUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.currentTarget.files;
+    if (files && onUpload) {
+      onUpload(files);
+    }
+  };
+
   return (
     <div>
       {label}
@@ -112,7 +113,7 @@ const InputFile = (props: PropTypes) => {
             <CiSaveUp2 className="mb-2 h-10 w-10 text-gray-400" />
             <p className="text-center text-sm font-semibold text-gray-500">
               {isDropable
-                ? "Drag and Drop or click to upload file here"
+                ? "Drag and drop or click to upload file here"
                 : "Click to upload file here"}
             </p>
           </div>

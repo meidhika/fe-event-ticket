@@ -4,10 +4,12 @@ interface IToaster {
   type: string;
   message: string;
 }
+
 interface IToasterState {
   toaster: IToaster;
   setToaster: (toaster: IToaster) => void;
 }
+
 const defaultToaster = {
   type: "",
   message: "",
@@ -20,6 +22,7 @@ const ToasterContext = createContext<IToasterState>({
 
 const ToasterProvider = ({ children }: { children: ReactNode }) => {
   const [toaster, setToaster] = useState<IToaster>(defaultToaster);
+
   return (
     <ToasterContext.Provider value={{ toaster, setToaster }}>
       {children}
@@ -27,5 +30,5 @@ const ToasterProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export { ToasterContext, ToasterProvider, defaultToaster };
+export { ToasterProvider, ToasterContext, defaultToaster };
 export type { IToaster, IToasterState };

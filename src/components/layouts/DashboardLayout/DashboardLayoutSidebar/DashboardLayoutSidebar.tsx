@@ -1,5 +1,5 @@
 import { cn } from "@/utils/cn";
-import { Button, Listbox, ListboxItem } from "@nextui-org/react";
+import { Button, Listbox, ListboxItem } from "@heroui/react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,12 +30,12 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
       )}
     >
       <div>
-        <div className="flex w-full justify-center">
+        <div className="flex justify-center">
           <Image
             src="/images/general/logo.svg"
             alt="logo"
             width={180}
-            height={180}
+            height={60}
             className="mb-6 w-32"
             onClick={() => router.push("/")}
           />
@@ -49,7 +49,9 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
             <ListboxItem
               key={item.key}
               className={cn("my-1 h-12 text-2xl", {
-                "bg-danger text-white": router.pathname.startsWith(item.href),
+                "bg-danger-500 text-white": router.pathname.startsWith(
+                  item.href,
+                ),
               })}
               startContent={item.icon}
               textValue={item.label}
@@ -68,7 +70,7 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
           color="danger"
           fullWidth
           variant="light"
-          className="flex justify-center rounded-lg px-2 py-1.5"
+          className="flex justify-start rounded-lg px-2 py-1.5"
           size="lg"
           onPress={() => signOut()}
         >

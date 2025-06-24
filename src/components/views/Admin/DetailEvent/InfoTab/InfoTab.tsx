@@ -1,4 +1,3 @@
-import { IEventForm } from "@/types/Event";
 import {
   Autocomplete,
   AutocompleteItem,
@@ -13,10 +12,11 @@ import {
   Skeleton,
   Spinner,
   Textarea,
-} from "@nextui-org/react";
-import { useEffect } from "react";
+} from "@heroui/react";
 import useInfoTab from "./useInfoTab";
 import { Controller } from "react-hook-form";
+import { useEffect } from "react";
+import { IEventForm } from "@/types/Event";
 import { ICategory } from "@/types/Category";
 import { toInputDate } from "@/utils/date";
 
@@ -31,10 +31,11 @@ const InfoTab = (props: PropTypes) => {
   const { dataEvent, onUpdate, isPendingUpdate, isSuccessUpdate } = props;
   const {
     controlUpdateInfo,
-    handleSubmitUpdateInfo,
     errorsUpdateInfo,
+    handleSubmitUpdateInfo,
     resetUpdateInfo,
     setValueUpdateInfo,
+
     dataCategory,
   } = useInfoTab();
 
@@ -56,13 +57,12 @@ const InfoTab = (props: PropTypes) => {
       resetUpdateInfo();
     }
   }, [isSuccessUpdate]);
-
   return (
     <Card className="w-full p-4 lg:w-1/2">
       <CardHeader className="flex-col items-center">
         <h1 className="w-full text-xl font-bold">Event Information</h1>
         <p className="w-full text-small text-default-400">
-          Manage Information Of This Event
+          Manage information of this event
         </p>
       </CardHeader>
       <CardBody>
@@ -72,8 +72,8 @@ const InfoTab = (props: PropTypes) => {
         >
           <Skeleton isLoaded={!!dataEvent?.name} className="rounded-lg">
             <Controller
-              control={controlUpdateInfo}
               name="name"
+              control={controlUpdateInfo}
               render={({ field }) => (
                 <Input
                   {...field}
@@ -89,8 +89,8 @@ const InfoTab = (props: PropTypes) => {
           </Skeleton>
           <Skeleton isLoaded={!!dataEvent?.slug} className="rounded-lg">
             <Controller
-              control={controlUpdateInfo}
               name="slug"
+              control={controlUpdateInfo}
               render={({ field }) => (
                 <Input
                   {...field}
@@ -106,21 +106,20 @@ const InfoTab = (props: PropTypes) => {
           </Skeleton>
           <Skeleton isLoaded={!!dataEvent?.category} className="rounded-lg">
             <Controller
-              control={controlUpdateInfo}
               name="category"
+              control={controlUpdateInfo}
               render={({ field: { onChange, ...field } }) => (
                 <Autocomplete
                   {...field}
                   defaultItems={dataCategory?.data.data || []}
                   label="Category"
-                  variant="bordered"
-                  type="text"
-                  defaultSelectedKey={dataEvent?.category}
                   labelPlacement="outside"
+                  variant="bordered"
+                  defaultSelectedKey={dataEvent?.category}
                   isInvalid={errorsUpdateInfo.category !== undefined}
                   errorMessage={errorsUpdateInfo.category?.message}
                   onSelectionChange={(value) => onChange(value)}
-                  placeholder="Search Category Here"
+                  placeholder="Search category here..."
                 >
                   {(category: ICategory) => (
                     <AutocompleteItem key={`${category._id}`}>
@@ -151,15 +150,15 @@ const InfoTab = (props: PropTypes) => {
           </Skeleton>
           <Skeleton isLoaded={!!dataEvent?.endDate} className="rounded-lg">
             <Controller
-              control={controlUpdateInfo}
               name="endDate"
+              control={controlUpdateInfo}
               render={({ field }) => (
                 <DatePicker
                   {...field}
                   label="End Date"
+                  labelPlacement="outside"
                   variant="bordered"
                   hideTimeZone
-                  labelPlacement="outside"
                   showMonthAndYearPickers
                   isInvalid={errorsUpdateInfo.endDate !== undefined}
                   errorMessage={errorsUpdateInfo.endDate?.message}
@@ -169,8 +168,8 @@ const InfoTab = (props: PropTypes) => {
           </Skeleton>
           <Skeleton isLoaded={!!dataEvent} className="rounded-lg">
             <Controller
-              control={controlUpdateInfo}
               name="isPublish"
+              control={controlUpdateInfo}
               render={({ field }) => (
                 <Select
                   {...field}
@@ -183,20 +182,16 @@ const InfoTab = (props: PropTypes) => {
                     dataEvent?.isPublish ? "true" : "false",
                   ]}
                 >
-                  <SelectItem key="true" value="true">
-                    Publish
-                  </SelectItem>
-                  <SelectItem key="false" value="false">
-                    Draft
-                  </SelectItem>
+                  <SelectItem key="true">Publish</SelectItem>
+                  <SelectItem key="false">Draft</SelectItem>
                 </Select>
               )}
             />
           </Skeleton>
           <Skeleton isLoaded={!!dataEvent} className="rounded-lg">
             <Controller
-              control={controlUpdateInfo}
               name="isFeatured"
+              control={controlUpdateInfo}
               render={({ field }) => (
                 <Select
                   {...field}
@@ -209,20 +204,16 @@ const InfoTab = (props: PropTypes) => {
                     dataEvent?.isFeatured ? "true" : "false",
                   ]}
                 >
-                  <SelectItem key="true" value="true">
-                    Yes
-                  </SelectItem>
-                  <SelectItem key="false" value="false">
-                    No
-                  </SelectItem>
+                  <SelectItem key="true">Yes</SelectItem>
+                  <SelectItem key="false">No</SelectItem>
                 </Select>
               )}
             />
           </Skeleton>
           <Skeleton isLoaded={!!dataEvent?.description} className="rounded-lg">
             <Controller
-              control={controlUpdateInfo}
               name="description"
+              control={controlUpdateInfo}
               render={({ field }) => (
                 <Textarea
                   {...field}
@@ -252,4 +243,5 @@ const InfoTab = (props: PropTypes) => {
     </Card>
   );
 };
+
 export default InfoTab;

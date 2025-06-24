@@ -14,7 +14,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { ChangeEvent, Key, ReactNode, useMemo } from "react";
 import { CiSearch } from "react-icons/ci";
 
@@ -94,9 +94,7 @@ const DataTable = (props: PropTypes) => {
             disallowEmptySelection
           >
             {LIMIT_LISTS.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                {item.label}
-              </SelectItem>
+              <SelectItem key={item.value}>{item.label}</SelectItem>
             ))}
           </Select>
         )}

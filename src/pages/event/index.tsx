@@ -4,7 +4,7 @@ import Event from "@/components/views/Event";
 const EventPage = () => {
   return (
     <LandingPageLayout title="Event">
-      <Event></Event>
+      <Event />
     </LandingPageLayout>
   );
 };

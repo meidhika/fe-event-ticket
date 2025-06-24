@@ -2,7 +2,7 @@ import PageHead from "@/components/commons/PageHead";
 import { ReactNode, useState } from "react";
 import DashboardLayoutSidebar from "./DashboardLayoutSidebar";
 import { SIDEBAR_ADMIN, SIDEBAR_MEMBER } from "./DashboardLayout.constans";
-import { Navbar, NavbarMenuToggle } from "@nextui-org/react";
+import { Navbar, NavbarMenuToggle } from "@heroui/react";
 
 interface PropTypes {
   children: ReactNode;
@@ -10,16 +10,18 @@ interface PropTypes {
   title?: string;
   type?: string;
 }
+
 const DashboardLayout = (props: PropTypes) => {
   const { children, description, title, type = "admin" } = props;
-  const [Open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <PageHead title={title} />
-      <div className="3-xl:container flex max-w-screen-2xl">
+      <div className="max-w-screen-3xl 3xl:container flex">
         <DashboardLayoutSidebar
           sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_MEMBER}
-          isOpen={Open}
+          isOpen={open}
         />
         <div className="h-screen w-full overflow-y-auto p-8">
           <Navbar
@@ -28,10 +30,10 @@ const DashboardLayout = (props: PropTypes) => {
             classNames={{ wrapper: "p-0" }}
             position="static"
           >
-            <h1 className="text-2xl font-bold">{title}</h1>
+            <h1 className="text-3xl font-bold">{title}</h1>
             <NavbarMenuToggle
-              aria-label={Open ? "Close menu" : "Open menu"}
-              onPress={() => setOpen(!Open)}
+              aria-label={open ? "Close Menu" : "Open Menu"}
+              onClick={() => setOpen(!open)}
               className="lg:hidden"
             />
           </Navbar>

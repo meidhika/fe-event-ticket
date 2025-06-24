@@ -1,6 +1,6 @@
 import { LIMIT_LISTS } from "@/constants/list.constants";
 import useChangeUrl from "@/hooks/useChangeUrl";
-import { Pagination, Select, SelectItem } from "@nextui-org/react";
+import { Pagination, Select, SelectItem } from "@heroui/react";
 
 interface PropTypes {
   totalPages: number;
@@ -22,9 +22,7 @@ const EventFooter = (props: PropTypes) => {
         disallowEmptySelection
       >
         {LIMIT_LISTS.map((item) => (
-          <SelectItem key={item.value} value={item.value}>
-            {item.label}
-          </SelectItem>
+          <SelectItem key={item.value}>{item.label}</SelectItem>
         ))}
       </Select>
       {totalPages > 1 && (
@@ -41,4 +39,5 @@ const EventFooter = (props: PropTypes) => {
     </div>
   );
 };
+
 export default EventFooter;

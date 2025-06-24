@@ -8,7 +8,7 @@ import {
   Skeleton,
   Spinner,
   Textarea,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import Image from "next/image";
 import { use, useEffect } from "react";
 import useInfoTab from "./useInfoTab";

@@ -27,13 +27,18 @@ const useMediaHandling = () => {
         callback: (fileUrl: string) => void;
       }) => uploadFile(variables.file, variables.callback),
       onError: (error) => {
-        setToaster({ type: "error", message: error.message });
+        setToaster({
+          type: "error",
+          message: error.message,
+        });
       },
     });
 
   const deleteFile = async (fileUrl: string, callback: () => void) => {
     const res = await uploadServices.deleteFile({ fileUrl });
-    if (res.data.meta.status === 200) callback();
+    if (res.data.meta.status === 200) {
+      callback();
+    }
   };
 
   const { mutate: mutateDeleteFile, isPending: isPendingMutateDeleteFile } =
@@ -41,7 +46,10 @@ const useMediaHandling = () => {
       mutationFn: (variables: { fileUrl: string; callback: () => void }) =>
         deleteFile(variables.fileUrl, variables.callback),
       onError: (error) => {
-        setToaster({ type: "error", message: error.message });
+        setToaster({
+          type: "error",
+          message: error.message,
+        });
       },
     });
 
@@ -64,10 +72,7 @@ const useMediaHandling = () => {
     callback: () => void,
   ) => {
     if (typeof fileUrl === "string") {
-      mutateDeleteFile({
-        fileUrl,
-        callback,
-      });
+      mutateDeleteFile({ fileUrl, callback });
     } else {
       callback();
     }
@@ -78,6 +83,7 @@ const useMediaHandling = () => {
     isPendingMutateUploadFile,
     mutateDeleteFile,
     isPendingMutateDeleteFile,
+
     handleUploadFile,
     handleDeleteFile,
   };

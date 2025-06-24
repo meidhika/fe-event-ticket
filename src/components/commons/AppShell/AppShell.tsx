@@ -21,7 +21,10 @@ const AppShell = (props: PropTypes) => {
     const timeout = setTimeout(() => {
       setToaster(defaultToaster);
     }, 3000);
-    return () => clearTimeout(timeout);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [toaster]);
 
   return (

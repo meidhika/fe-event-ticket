@@ -7,7 +7,7 @@ import eventServices from "@/services/event.service";
 import { IEvent, IEventForm } from "@/types/Event";
 import { toDateStandard } from "@/utils/date";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { DateValue } from "@nextui-org/react";
+import { DateValue } from "@heroui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -16,17 +16,17 @@ import * as yup from "yup";
 const schema = yup.object().shape({
   name: yup.string().required("Please input name"),
   slug: yup.string().required("Please input slug"),
-  category: yup.string().required("Please input category"),
-  startDate: yup.mixed<DateValue>().required("Please input start date"),
-  endDate: yup.mixed<DateValue>().required("Please input end date"),
+  category: yup.string().required("Please select category"),
+  startDate: yup.mixed<DateValue>().required("Please select start date"),
+  endDate: yup.mixed<DateValue>().required("Please select end date"),
   isPublish: yup.string().required("Please select status"),
   isFeatured: yup.string().required("Please select featured"),
+  description: yup.string().required("Please input description"),
   isOnline: yup.string().required("Please select online or offline"),
   region: yup.string().required("Please select region"),
-  description: yup.string().required("Please input description"),
-  latitude: yup.string().required("Please input latitude coordinate"),
   longitude: yup.string().required("Please input longitude coordinate"),
-  banner: yup.mixed<FileList | string>().required("Please input  Banner"),
+  latitude: yup.string().required("Please select latitude coordinate"),
+  banner: yup.mixed<FileList | string>().required("Please input banner"),
   address: yup.string().required("Please input address"),
 });
 
@@ -48,7 +48,9 @@ const useAddEventModal = () => {
     watch,
     getValues,
     setValue,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const preview = watch("banner");
   const fileUrl = getValues("banner");
@@ -70,7 +72,7 @@ const useAddEventModal = () => {
     handleDeleteFile(fileUrl, () => onChange(undefined));
   };
 
-  const hanldeOnClose = (onClose: () => void) => {
+  const handleOnClose = (onClose: () => void) => {
     handleDeleteFile(fileUrl, () => {
       reset();
       onClose();
@@ -107,10 +109,16 @@ const useAddEventModal = () => {
   } = useMutation({
     mutationFn: addEvent,
     onError: (error) => {
-      setToaster({ type: "error", message: error.message });
+      setToaster({
+        type: "error",
+        message: error.message,
+      });
     },
     onSuccess: () => {
-      setToaster({ type: "success", message: "Success add Category" });
+      setToaster({
+        type: "success",
+        message: "Success add category",
+      });
       reset();
     },
   });
@@ -145,7 +153,7 @@ const useAddEventModal = () => {
     isPendingMutateUploadFile,
     handleDeleteBanner,
     isPendingMutateDeleteFile,
-    hanldeOnClose,
+    handleOnClose,
 
     dataCategory,
     dataRegion,

@@ -1,9 +1,8 @@
 import instance from "@/libs/axios/instance";
 import endpoint from "./endpoint.constant";
-import { header } from "framer-motion/client";
 import { IFileURL } from "@/types/File";
 
-const formDataHeader = {
+const formdataHeader = {
   headers: {
     "Content-Type": "multipart/form-data",
   },
@@ -11,8 +10,7 @@ const formDataHeader = {
 
 const uploadServices = {
   uploadFile: (payload: FormData) =>
-    instance.post(`${endpoint.MEDIA}/upload-single`, payload, formDataHeader),
-
+    instance.post(`${endpoint.MEDIA}/upload-single`, payload, formdataHeader),
   deleteFile: (payload: IFileURL) =>
     instance.delete(`${endpoint.MEDIA}/remove`, { data: payload }),
 };

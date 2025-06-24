@@ -6,7 +6,7 @@ import {
   Button,
   Card,
   Chip,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useSession } from "next-auth/react";
 
 interface PropTypes {
